@@ -20,7 +20,7 @@ async function loadCars() {
       carList.appendChild(card);
     });
   } catch (error) {
-    console.error("Araçlar yüklenemedi:", error);
+    console.error("Araçler yüklenemedi:", error);
   }
 }
 
