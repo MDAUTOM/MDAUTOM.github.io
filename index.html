@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. https://webflow.com -->
 <!-- Last Published: Mon Aug 18 2025 03:18:02 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="md-autom.webflow.io" data-wf-page="68a0494aa156f0ba31b18608" data-wf-site="68a0494aa156f0ba31b185fd" data-wf-status="1" lang="tr">
+<html data-wf-domain="md-autom.webflow.io" data-wf-page="68a0494aa156f0ba31b18608" data-wf-site="68a0494aa156f0ba31b185fd" data-wf-status="1">
 <!-- Mirrored from md-autom.webflow.io/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Aug 2025 03:19:30 GMT -->
 <head>
   <meta charset="utf-8"/>
@@ -21,7 +21,7 @@
   <script>
   (function(){
     // ====== CONFIG: root'taki favicon dosya isimleri =========
-    var faviconUrl = "/favicon007.svg";           // primary favicon (SVG)
+    var faviconUrl = "/favicon-32.png";           // primary favicon (tarayıcılar için)
     var appleTouch = "/apple-touch-icon.png";     // iOS / apple touch icon (opsiyonel)
 
     // ---- helper: favicon'ları değiştir / ekle ----
@@ -29,19 +29,14 @@
       try {
         var head = document.getElementsByTagName('head')[0] || document.documentElement;
         // normal favicon (shortcut icon veya icon)
-        var links = head.querySelectorAll('link[rel="shortcut icon"], link[rel="icon"]');
-        if(links && links.length){
-          links.forEach(function(l){ l.href = url; });
+        var link = head.querySelector('link[rel="shortcut icon"], link[rel="icon"]');
+        if(link) {
+          link.href = url;
         } else {
-          var l = head.querySelector('link[rel="icon"]');
-          if(l) l.href = url;
-          else {
-            var link = document.createElement('link');
-            link.rel = 'icon';
-            link.type = 'image/svg+xml';
-            link.href = url;
-            head.appendChild(link);
-          }
+          link = document.createElement('link');
+          link.rel = 'shortcut icon';
+          link.href = url;
+          head.appendChild(link);
         }
         // apple-touch-icon (opsiyonel)
         if(appleTouch){
@@ -106,13 +101,17 @@
   </script>
 
   <!-- Explicit favicon tags (index.html ile aynı root'ta olan dosyalar için) -->
-  <link rel="icon" href="/favicon007.svg" type="image/svg+xml"/>
-  <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
-  <link rel="alternate icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+  <!-- (kopyaladığın root dosya isimlerine göre çalışır) -->
+  <link rel="shortcut icon" href="/favicon.ico?v=1" type="image/x-icon"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=1"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=1"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=1"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1"/>
 
   <!-- ===== Custom CSS (moved here so it loads correctly) ===== -->
   <style>
+    /* Place this after your Webflow CSS (or inside <head> at the end) */
+
     /* NAV alignment + logo sizing */
     .nav_left .nav_logo {
       display: inline-flex;
@@ -121,8 +120,7 @@
       text-decoration: none;
       color: inherit;
     }
-    .nav_left .nav_logo .site-logo,
-    .footer_logo .site-logo {
+    .nav_left .nav_logo .site-logo {
       width: 40px;
       height: 40px;
       flex: 0 0 40px;
@@ -182,77 +180,12 @@
     /* Force SVG/icons to follow currentColor */
     .nav svg { color: inherit; fill: currentColor; }
 
-    /* Footer logo sizing helper */
-    .footer_logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* ---------- BRAND BOX in footer (639 x 210) ---------- */
-    .brand-box-wrapper {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin: 18px 0 0 0;
-    }
-    .brand-box {
-      width: 639px;
-      height: 210px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;               /* logo ile metin arası 10px */
-      background: inherit;     /* footer arka planını alır */
-      box-sizing: border-box;
-      padding: 0;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .brand-box .brand-logo {
-      width: 210px;
-      height: 210px;
-      flex: 0 0 210px;
-      display: block;
-      object-fit: contain;
-      background: transparent;
-    }
-    .brand-box .brand-text-large {
-      width: 419px;
-      height: 97px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      color: inherit;
-      background: transparent;
-      text-transform: none;
-    }
-
-    @media (max-width: 900px){
-      .brand-box {
-        width: calc(100% - 40px);
-        height: auto;
-        padding: 12px;
-        gap: 12px;
-        flex-wrap: nowrap;
-      }
-      .brand-box .brand-logo {
-        width: 96px;
-        height: 96px;
-        flex: 0 0 96px;
-      }
-      .brand-box .brand-text-large {
-        width: auto;
-        height: auto;
-        font-size: 20px;
-        justify-content: flex-start;
-      }
+    /* Footer logo sizing */
+    .footer_logo .site-logo {
+      width: 40px;
+      height: 40px;
+      display:block;
+      flex:0 0 40px;
     }
   </style>
   <!-- ====================================================== -->
@@ -261,10 +194,11 @@
   <div class="nav">
     <div data-duration="400" data-animation="default" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" class="nav_container w-nav">
       <div class="nav_left">
-        <!-- NAV LOGO: use favicon007.svg (40x40) + marka metni -->
+        <!-- NAV LOGO: inline SVG (40x40) + marka metni -->
         <a href="/" class="nav_logo w-inline-block" aria-label="MD AUTO - Anasayfa">
-          <!-- external SVG/PNG used so swapping is easier -->
-          <img src="/favicon007.svg" alt="MD AUTO Logo" class="site-logo" width="40" height="40"/>
+          <svg class="site-logo" width="40" height="40" viewBox="0 0 33 33" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28,0H5C2.24,0,0,2.24,0,5v23c0,2.76,2.24,5,5,5h23c2.76,0,5-2.24,5-5V5c0-2.76-2.24-5-5-5ZM29,17c-6.63,0-12,5.37-12,12h-1c0-6.63-5.37-12-12-12v-1c6.63,0,12-5.37,12-12h1c0,6.63,5.37,12,12,12v1Z" fill="currentColor"></path>
+          </svg>
           <div class="brand-text paragraph_large margin-bottom_none" data-brand-name="true">Şanlıurfa&#x27;daki seçkin araç bayiniz.</div>
         </a>
       </div>
@@ -305,6 +239,24 @@
                           </div>
                         </div>
                       </li>
+                      <li id="w-node-_016f5a0a-5b63-edde-82c5-e2b2ad6d2ede-ad6d2e56" class="flex_horizontal w-node-fe4ab64d-a311-5c76-7afb-1744b6ede534-b6ede4ae">
+                        <a href="placeholder-bir-sonraki-aracınızı-evinize-götürünilanlarımızı-keşfedin-v.html" class="card-link is-inverse flex-child_expand w-inline-block">
+                          <div class="card_body">
+                            <div class="heading_h3">Bir sonraki aracınızı evinize götürün</div>
+                            <p class="paragraph_small text-color_inverse-secondary">İlanlarımızı keşfedin ve eşinizi bulun.</p>
+                            <div class="margin_top-auto">
+                              <div class="button-group">
+                                <div class="text-button is-secondary"><div>Göz atın</div><div class="button_icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 16 16" fill="none"><path d="M2 8H14.5M14.5 8L8.5 2M14.5 8L8.5 14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path></svg></div></div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </li>
 
             <!-- other nav items -->
             <li class="nav_menu-list-item"><a href="placeholder-hakkında.html" class="nav_link w-inline-block"><div>Hakkında</div></a></li>
@@ -380,17 +332,14 @@
           <li class="margin-bottom_none"><a href="placeholder-linkedin.html" class="footer_link on-inverse w-inline-block"><div>LinkedIn</div></a></li>
         </ul>
       </div>
-
       <div class="padding-vertical_large">
-        <!-- BRAND BOX: 639x210 containing 210x210 logo + text area (419x97) -->
-        <div class="brand-box-wrapper" aria-hidden="false" role="region" aria-label="MD AUTO marka alanı">
-          <div class="brand-box" role="group" aria-label="MD AUTO marka kutusu">
-            <img src="/favicon007.svg" alt="MD AUTO Logo" class="brand-logo" width="210" height="210" />
-            <div class="brand-text-large">MD AUTO</div>
-          </div>
-        </div>
-
-        <div class="footer_bottom" style="margin-top:18px;">
+        <!-- FOOTER LOGO: inline SVG (40x40) -->
+        <a href="/" class="footer_logo text-link_inherit width_100percent w-inline-block" aria-label="MD AUTO - Anasayfa">
+          <svg class="site-logo" width="40" height="40" viewBox="0 0 33 33" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28,0H5C2.24,0,0,2.24,0,5v23c0,2.76,2.24,5,5,5h23c2.76,0,5-2.24,5-5V5c0-2.76-2.24-5-5-5ZM29,17c-6.63,0-12,5.37-12,12h-1c0-6.63-5.37-12-12-12v-1c6.63,0,12-5.37,12-12h1c0,6.63,5.37,12,12,12v1Z" fill="currentColor"></path>
+          </svg>
+        </a>
+        <div class="footer_bottom">
           <div class="text-color_secondary">© 2025 MD AUTOM</div>
           <a href="placeholder-göz-at.html" class="footer_link on-inverse w-inline-block"><div>Göz at</div></a>
         </div>
