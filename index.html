@@ -20,13 +20,15 @@
   <!-- QUICK: remove Webflow badge + force favicon replacement -->
   <script>
   (function(){
-    // ====== CONFIG: burayı gerektiğinde kendi favicon yoluna değiştir ======
-    var faviconUrl = "/favicon-16.png";           // tarayıcı sekmesi ikonu (root'ta favicon varsa)
+    // ====== CONFIG: root'taki favicon dosya isimleri =========
+    var faviconUrl = "/favicon-32.png";           // primary favicon (tarayıcılar için)
+    var appleTouch = "/apple-touch-icon.png";     // iOS / apple touch icon (opsiyonel)
 
+    // ---- helper: favicon'ları değiştir / ekle ----
     function setFavicon(url){
       try {
         var head = document.getElementsByTagName('head')[0] || document.documentElement;
-        // normal favicon (override veya ekle)
+        // normal favicon (shortcut icon veya icon)
         var link = head.querySelector('link[rel="shortcut icon"], link[rel="icon"]');
         if(link) {
           link.href = url;
@@ -49,6 +51,7 @@
       } catch(e){ console && console.error && console.error(e); }
     }
 
+    // --- badge kaldırma fonksiyonu ---
     function removeBadgeNode(node){
       try{
         if(!node) return;
@@ -97,10 +100,13 @@
   })();
   </script>
 
-  <!-- Explicit favicon tags (eklenmiş / sonradan gelen script'in üzerine yazması için burada koyduk) -->
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-  <link rel="apple-touch-icon" href="/webclip.png"/>
+  <!-- Explicit favicon tags (index.html ile aynı root'ta olan dosyalar için) -->
+  <!-- (kopyaladığın root dosya isimlerine göre çalışır) -->
+  <link rel="shortcut icon" href="/favicon.ico?v=1" type="image/x-icon"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=1"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=1"/>
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=1"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1"/>
 
   <!-- ===== Custom CSS (moved here so it loads correctly) ===== -->
   <style>
